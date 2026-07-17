@@ -1,104 +1,95 @@
 # Business OS
 
-**Multi-agent business operating system** — turn a vague constraint into a locked plan and specialist-generated artifacts.
+**Multi-agent Business Operating System** — vague constraint → Hormozi-grounded strategist → plan lock → specialist agents → paste-ready artifacts.
 
 | | |
 |---|---|
-| **Live demo** | [app.deekshak.site](https://app.deekshak.site) |
+| **Live** | [app.deekshak.site](https://app.deekshak.site) |
 | **Portfolio** | [deekshak.site](https://deekshak.site) |
-| **Author** | [Deekshak SS](https://deekshak.site) · AI implementation / orchestration |
+| **Author** | [Deekshak SS](https://deekshak.site) |
 
 ---
 
-## What it does
+## Product vision
+
+1. **Strategist** — multi-turn diagnosis with RAG over a methodology vault  
+2. **Human approval** — structured plan the user can edit / lock  
+3. **Execution specialists**  
+   - **Copy** — copy assets from Copy-OS style knowledge  
+   - **Build** — implementation tasks / blueprints  
+
+Built as a **hire-ready proof** of orchestration, approval gates, and real UI — not a notebook.
+
+## Architecture
 
 ```
-User chat  →  Strategist (RAG)  →  Plan lock + human approval
-                                      ↓
-                         Copywriting + Builder specialists
-                                      ↓
-                         Paste-ready outputs (not token dumps)
+React UI (chat · pipeline · plan · agents · outputs)
+        ↓
+FastAPI API (thread state, plan schema, handoffs)
+        ↓
+┌─────────────┬──────────────┬─────────────┐
+│ Strategist  │  Copywriter  │   Builder   │
+│ LLM + RAG   │  LLM + RAG   │  LLM plan   │
+└─────────────┴──────────────┴─────────────┘
 ```
-
-Built for roles and teams that care about **production loops**, not notebook demos.
-
-## Stack
 
 | Layer | Tech |
 |-------|------|
-| Web UI | React + Vite · Vercel |
+| Web | React + Vite · Vercel |
 | API | FastAPI · Modal |
-| Strategist | LLM + RAG over your knowledge vaults |
-| Agents | Strategist · Copywriter · Builder · Executor |
-| Data | Chroma (local / Modal volume) |
+| RAG | Chroma + sentence-transformers |
+| Orchestration | Plan schema + approval + specialist executors |
+
+Continuity docs: `docs/00-MASTER-PLAN-AND-CONTINUITY.md`, `docs/STATUS.md`, `docs/DESIGN-SYSTEM.md`.
 
 ## Repo layout
 
 ```
-apps/web/          # Product UI (chat, pipeline, plan, agents, outputs)
-services/api/      # FastAPI app, agents, RAG, Modal deploy
-docs/              # Design notes & continuity
-evals/             # Evaluation helpers
-scripts/           # Utility scripts
-knowledge/         # Place your own RAG sources (not shipped)
+apps/web/           # Product shell
+services/api/       # FastAPI, agents, RAG, Modal
+docs/               # Plans, design system, deploy notes
+evals/              # Evaluation helpers
+knowledge/README.md # Place your own vaults (not shipped)
 ```
 
-## Quick start (local API)
+## Quick start
 
 ```powershell
+# API
 cd services/api
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-copy .env.example .env   # add OPENROUTER_API_KEY or DEEPSEEK_API_KEY
-# Optionally put markdown/docs under knowledge/ and run ingest
-python -m app.rag.ingest
-uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
-```
+copy .env.example .env   # OPENROUTER_API_KEY or DEEPSEEK_API_KEY
+uvicorn app.main:app --reload --port 8000
 
-API docs: http://127.0.0.1:8000/docs
-
-## Quick start (web)
-
-```powershell
+# Web
 cd apps/web
 npm install
-# set VITE_API_URL to your API base
+# set VITE_API_URL
 npm run dev
 ```
 
-Production web: configure `VITE_API_URL` for the deployed Modal/API URL, then:
+## Deploy
 
-```powershell
-npm run build
-# deploy dist/ (Vercel project already used for app.deekshak.site)
-```
-
-## Environment
-
-See `services/api/.env.example`. **Never commit real keys.**
-
-| Variable | Purpose |
-|----------|---------|
-| `OPENROUTER_API_KEY` / `DEEPSEEK_API_KEY` | LLM access |
-| `LLM_BASE_URL` / `LLM_MODEL` | Provider routing |
-| `XAI_API_KEY` | Optional Grok-related tooling |
-
-## Modal deploy
-
-```powershell
-cd services/api
-modal secret create business-os-secrets OPENROUTER_API_KEY=<your-key>
-modal deploy modal_app.py
-```
+- API: `modal deploy services/api/modal_app.py` (secrets via Modal)  
+- Web: Vercel with `VITE_API_URL` pointing at API  
 
 ## Security
 
-- `.env` and local vector DBs are gitignored  
-- Knowledge vaults with third-party copyrighted material are **not** included  
-- Rotate any key that ever appeared in a local-only file  
+- Never commit `.env`  
+- Knowledge vaults with third-party copyrighted material are **not** in this repo  
+- `.env.example` documents required variables only  
+
+## Related projects
+
+| Repo | Role |
+|------|------|
+| [agency-os](https://github.com/Deekshak11/agency-os) | Outbound factory (Antigravity) |
+| [show-rate-guardian](https://github.com/Deekshak11/show-rate-guardian) | No-show agent skills |
+| [signal-os](https://github.com/Deekshak11/signal-os) | Agentic infrastructure docs |
+| [deekshak-portfolio](https://github.com/Deekshak11/deekshak-portfolio) | Portfolio site |
 
 ## License
 
-MIT for original code in this repository.  
-Live product branding © Deekshak SS. Third-party models and APIs subject to their terms.
+MIT for original code in this repository.
