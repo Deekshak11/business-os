@@ -78,30 +78,45 @@ User message
 
 ## Knowledge density (what makes RAG real)
 
-Third-party corpus **content is not shipped** in this public repo (copyright / license hygiene). The **pipeline and architecture** are. On the running product, retrieval is backed by high-density vaults:
+**Full RAG-optimized vaults ship in this repo** under [`knowledge/`](./knowledge/):
 
-### Strategist — Hormozi growth systems
+| Vault | Path | Product role |
+|-------|------|----------------|
+| Hormozi growth systems | [`knowledge/hormozi/`](./knowledge/hormozi/) | Strategist retrieval |
+| Copy OS persuasion systems | [`knowledge/copyos/`](./knowledge/copyos/) | Copy specialist retrieval |
+
+### Strategist — Hormozi vault (`knowledge/hormozi`)
 
 | Dimension | What is loaded |
 |-----------|----------------|
 | Core | Offers, leads, money models, growth systems |
-| Containers | **3** core books + **12** advanced implementation playbooks |
-| Shape | Stages, frameworks, diagnostic systems for lead / sales / retention / profit |
+| Containers | **3** core books (distilled) + **12** implementation playbooks |
+| Layout | Core frameworks · stages 0–9 · playbooks · summaries · MOCs + `AGENT-SCHEMA.md` |
+| Form | Section MD + YAML frontmatter (not raw PDF dumps) |
 
-### Copy specialist — Copy OS persuasion systems
+### Copy specialist — Copy OS vault (`knowledge/copyos`)
 
 | Dimension | Scale |
 |-----------|------:|
-| Vault documents | **14** in-depth docs |
+| Source mega-docs | **14** (section-split for RAG) |
+| RAG section files | **~400+** |
 | Named frameworks | **112** |
 | Structures / templates | **32** |
-| Checklists & QA | **58** (incl. universal laws, stress tests) |
-| Swipe / examples | **600+** files |
-| Author / source base | **40+** classic and modern (Hopkins, Schwartz, Cialdini, Ogilvy, Kennedy, Brunson, Hormozi, …) |
+| Checklists & QA | **58** |
+| Swipe / examples | **600+** references in system |
+| Authors / sources | **40+** |
+| Layout | Navigation · foundation · architecture · tactics · systems · MOCs |
 
 Portfolio deep-dive: [deekshak.site/#flagship](https://deekshak.site/#flagship) → **Behind the scenes**.
 
-Local operators place their own vault material under paths described in `knowledge/README.md` (never commit secrets or copyrighted dumps to git).
+```text
+knowledge/
+  README.md          # dual-corpus design
+  hormozi/           # strategist corpus (from H:\Hormozi-Business-Strategist)
+  copyos/            # copy specialist corpus (from H:\Copywriting-OS)
+```
+
+Raw book PDFs / desktop dumps are **not** included.
 
 ---
 
@@ -130,8 +145,8 @@ services/api/
     llm/                  Model clients
   modal_app.py            Modal deploy entry
   tests/                  Unit tests (constraints, artifact parse)
-docs/                     Continuity, design system, deploy, status
-knowledge/                Local vault instructions (no proprietary dump)
+docs/                     Continuity, design system, deploy, architecture
+knowledge/                hormozi/ + copyos/ RAG vaults (this is the density proof)
 evals/                    Evaluation hooks
 ```
 
@@ -179,7 +194,7 @@ See `docs/DEPLOY-MODAL-VERCEL.md`.
 
 - No `.env` / keys / tokens in git  
 - No client PII  
-- **No third-party copyrighted vault dumps** in the public tree  
+- No raw PDF book dumps (distilled RAG MD only under `knowledge/`)  
 - `.env.example` documents variables only  
 
 ---

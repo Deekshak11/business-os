@@ -1,0 +1,54 @@
+---
+title: "Index — Proof"
+type: moc
+source: "09 - Proof & Credibility.md"
+stage: writing
+tags: [proof, testimonials, credibility, index]
+keywords: []
+parent_doc: "09 - Proof & Credibility.md"
+section_id: "Proof-index"
+last_updated: 2026-07-16
+summary: "Section index for 09 - Proof & Credibility.md"
+when_to_use: "Use to find the right section file inside this document family."
+---
+
+# Index — Proof
+
+Source: `09 - Proof & Credibility.md`
+Chunks: 33
+
+| # | File | Section |
+|---|------|---------|
+| 1 | `Proof-01-Preamble-Index.md` | Preamble-Index |
+| 2 | `Proof-02-SECTION-0-PREREQUISITES-HOW-TO-USE.md` | SECTION 0 — PREREQUISITES & HOW TO USE |
+| 3 | `Proof-03-PART-I-THE-PROOF-HIERARCHY-5-TIERS.md` | PART I — THE PROOF HIERARCHY (5 TIERS) |
+| 4 | `Proof-04-SECTION-11-WHY-PROOF-IS-CRITICAL-SKEPTICISM-IS-THE-DEFAULT.md` | SECTION 1.1 — WHY PROOF IS CRITICAL (SKEPTICISM IS THE DEFAULT) |
+| 5 | `Proof-05-SECTION-12-TIER-1-SOCIAL-PROOF-TESTIMONIALS-CIALDINI.md` | SECTION 1.2 — TIER 1: SOCIAL PROOF (TESTIMONIALS — CIALDINI) |
+| 6 | `Proof-06-SECTION-13-TIER-2-STATISTICAL-PROOF-DATA-TRACK-RECORD-NUMBER.md` | SECTION 1.3 — TIER 2: STATISTICAL PROOF (DATA, TRACK RECORD, NUMBERS) |
+| 7 | `Proof-07-SECTION-14-TIER-3-DEMONSTRATIVE-PROOF-CASE-STUDIES-BEFOREAFT.md` | SECTION 1.4 — TIER 3: DEMONSTRATIVE PROOF (CASE STUDIES, BEFORE/AFTER) |
+| 8 | `Proof-08-SECTION-15-TIER-4-AUTHORITATIVE-PROOF-CREDENTIALS-EXPERTISE.md` | SECTION 1.5 — TIER 4: AUTHORITATIVE PROOF (CREDENTIALS, EXPERTISE) |
+| 9 | `Proof-09-SECTION-16-TIER-5-GUARANTEED-PROOF-THE-ULTIMATE-RISK-REVERSA.md` | SECTION 1.6 — TIER 5: GUARANTEED PROOF (THE ULTIMATE RISK REVERSAL) |
+| 10 | `Proof-10-SECTION-17-THE-STACKING-EFFECT-5-CUMULATIVE-TIERS-140.md` | SECTION 1.7 — THE STACKING EFFECT (5 CUMULATIVE TIERS = +140%) |
+| 11 | `Proof-11-PART-II-TESTIMONIALS-ENGINEERING.md` | PART II — TESTIMONIALS ENGINEERING |
+| 12 | `Proof-12-SECTION-21-THE-COLLECTION-PROCESS-How-to-Get-Quality-Testimo.md` | SECTION 2.1 — THE COLLECTION PROCESS (How to Get Quality Testimonials) |
+| 13 | `Proof-13-SECTION-22-EDITING-TESTIMONIALS-Ethics-vs-Manipulation-Blys.md` | SECTION 2.2 — EDITING TESTIMONIALS (Ethics vs. Manipulation, Bly's Guidelines) |
+| 14 | `Proof-14-SECTION-23-FORMAT-TYPES-Text-Video-Audio-The-Impact-of-Each.md` | SECTION 2.3 — FORMAT TYPES (Text, Video, Audio — The Impact of Each) |
+| 15 | `Proof-15-SECTION-24-STRATEGIC-PLACEMENT-Where-in-the-Copy-How-Many-Fr.md` | SECTION 2.4 — STRATEGIC PLACEMENT (Where in the Copy, How Many, Frequency) |
+| 16 | `Proof-16-SECTION-25-DIVERSITY-REQUIREMENTS-Avatar-Match-Range-Verific.md` | SECTION 2.5 — DIVERSITY REQUIREMENTS (Avatar-Match, Range, Verification) |
+| 17 | `Proof-17-PART-III-DATA-STATISTICS-PRESENTATION.md` | PART III — DATA & STATISTICS PRESENTATION |
+| 18 | `Proof-18-SECTION-31-PERSUASIVE-NUMBERS-Specific-Round.md` | SECTION 3.1 — PERSUASIVE NUMBERS (Specific > Round) |
+| 19 | `Proof-19-SECTION-32-RANGES-VARIANCE-The-Honesty-Credibility-Paradox.md` | SECTION 3.2 — RANGES & VARIANCE (The Honesty = Credibility Paradox) |
+| 20 | `Proof-20-SECTION-33-THE-CONTEXT-OF-COMPARISON-The-Relativity-of-Indus.md` | SECTION 3.3 — THE CONTEXT OF COMPARISON (The Relativity of Industry Benchmarks) |
+| 21 | `Proof-21-SECTION-34-VISUAL-DATA-When-to-Use-Charts-Graphs-and-Tables.md` | SECTION 3.4 — VISUAL DATA (When to Use Charts, Graphs, and Tables) |
+| 22 | `Proof-22-PART-IV-CASE-STUDY-STRUCTURE.md` | PART IV — CASE STUDY STRUCTURE |
+| 23 | `Proof-23-SECTION-41-CASE-STUDY-VS-TESTIMONIAL-The-Differences-When-to.md` | SECTION 4.1 — CASE STUDY VS. TESTIMONIAL (The Differences, When to Use Each) |
+| 24 | `Proof-24-SECTION-42-AWAIS-5-SECTION-STRUCTURE-The-Case-Study-Framewor.md` | SECTION 4.2 — AWAI'S 5-SECTION STRUCTURE (The Case Study Framework) |
+| 25 | `Proof-25-PART-V-AUTHORITY-BUILDING-THE-7-COMPONENTS-OF-THE-CREDENTIAL.md` | PART V — AUTHORITY BUILDING (THE 7 COMPONENTS OF THE CREDENTIAL STACK) |
+| 26 | `Proof-26-SECTION-51-THE-7-COMPONENTS-OF-AUTHORITY-Cialdini-Applied.md` | SECTION 5.1 — THE 7 COMPONENTS OF AUTHORITY (Cialdini Applied) |
+| 27 | `Proof-27-PART-VI-GUARANTEE-INTEGRATION-AS-A-PROOF-ELEMENT.md` | PART VI — GUARANTEE INTEGRATION AS A PROOF ELEMENT |
+| 28 | `Proof-28-SECTION-61-THE-GUARANTEE-AS-TIER-5-PROOF-A-Recap-from-Doc-4.md` | SECTION 6.1 — THE GUARANTEE AS TIER 5 PROOF (A Recap from Doc 4) |
+| 29 | `Proof-29-SECTION-62-MULTIPLE-PLACEMENTS-OF-THE-GUARANTEE-7-Locations.md` | SECTION 6.2 — MULTIPLE PLACEMENTS OF THE GUARANTEE (7 Locations) |
+| 30 | `Proof-30-PART-VII-VERIFICATION-TRANSPARENCY.md` | PART VII — VERIFICATION & TRANSPARENCY |
+| 31 | `Proof-31-SECTION-71-VERIFICATION-LINKS-To-Prove-Your-Claims-are-Check.md` | SECTION 7.1 — VERIFICATION LINKS (To Prove Your Claims are Checkable): |
+| 32 | `Proof-32-SECTION-72-INDEPENDENT-THIRD-PARTIES-Reviews-Ratings-Media.md` | SECTION 7.2 — INDEPENDENT THIRD-PARTIES (Reviews, Ratings, Media): |
+| 33 | `Proof-33-SECTION-73-RADICAL-TRANSPARENCY-Admit-Your-Limitations-Warre.md` | SECTION 7.3 — RADICAL TRANSPARENCY (Admit Your Limitations, Warren-Style): |
