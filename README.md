@@ -1,58 +1,143 @@
 # Business OS
 
-**Multi-agent Business Operating System** — vague constraint → Hormozi-grounded strategist → plan lock → specialist agents → paste-ready artifacts.
+**Multi-agent business operating system** — messy request → dense RAG strategist → **human plan lock** → specialist agents → paste-ready artifacts.
 
-| | |
-|---|---|
-| **Live** | [app.deekshak.site](https://app.deekshak.site) |
-| **Portfolio** | [deekshak.site](https://deekshak.site) |
-| **Author** | [Deekshak SS](https://deekshak.site) |
+[![Live](https://img.shields.io/badge/Live-app.deekshak.site-14b8a6?style=for-the-badge)](https://app.deekshak.site)
+[![Portfolio](https://img.shields.io/badge/Portfolio-deekshak.site-0ea5e9?style=for-the-badge)](https://deekshak.site/#flagship)
+[![Author](https://img.shields.io/badge/Author-Deekshak%20SS-1e293b?style=for-the-badge)](https://github.com/Deekshak11)
+
+> Hire-facing flagship. Proves **orchestration**, **approval gates**, **multi-corpus RAG**, and a real product UI — not a notebook demo.
 
 ---
 
-## Product vision
+## Why this exists
 
-1. **Strategist** — multi-turn diagnosis with RAG over a methodology vault  
-2. **Human approval** — structured plan the user can edit / lock  
-3. **Execution specialists**  
-   - **Copy** — copy assets from Copy-OS style knowledge  
-   - **Build** — implementation tasks / blueprints  
+Most business AI chat dumps ideas and stops. Operators still need:
 
-Built as a **hire-ready proof** of orchestration, approval gates, and real UI — not a notebook.
+1. A **diagnosed constraint** (not vibes)
+2. A **structured plan** a human can approve
+3. **Specialists** that produce usable drafts (copy / build), grounded in real methodology
 
-## Architecture
+Business OS is that loop, end to end, in production.
 
+| Surface | URL |
+|---------|-----|
+| **Live product** | https://app.deekshak.site |
+| **Portfolio case + walkthrough** | https://deekshak.site/#flagship |
+| **This repo** | architecture, API, web shell, deploy |
+
+---
+
+## System architecture
+
+```text
+┌──────────────────────────────────────────────────────────────────┐
+│  React product shell (Vercel)                                      │
+│  Chat · Pipeline · Plan · Agents · Outputs                           │
+└────────────────────────────┬─────────────────────────────────────┘
+                             │ HTTPS / JSON
+┌────────────────────────────▼─────────────────────────────────────┐
+│  FastAPI orchestration layer (Modal)                               │
+│  · Thread + plan state                                             │
+│  · Approval / route (copy | build | both)                          │
+│  · Specialist handoff + artifact collection                        │
+└───────┬────────────────────┬─────────────────────┬───────────────┘
+        │                    │                     │
+        ▼                    ▼                     ▼
+┌───────────────┐   ┌────────────────┐   ┌─────────────────┐
+│  STRATEGIST   │   │  COPYWRITING   │   │    BUILDER      │
+│  LLM + RAG    │   │  LLM + RAG     │   │  LLM + plan     │
+│  Hormozi vault│   │  Copy OS vault │   │  implementation │
+│  diagnose →   │   │  drafts, hooks │   │  blueprints     │
+│  plan schema  │   │  after lock    │   │  after lock     │
+└───────┬───────┘   └────────┬───────┘   └────────┬────────┘
+        │                    │                     │
+        ▼                    ▼                     │
+┌───────────────────────────────────────┐          │
+│  Chroma vector store                   │◄─────────┘
+│  embeddings · retrieval · citations    │
+└───────────────────────────────────────┘
 ```
-React UI (chat · pipeline · plan · agents · outputs)
-        ↓
-FastAPI API (thread state, plan schema, handoffs)
-        ↓
-┌─────────────┬──────────────┬─────────────┐
-│ Strategist  │  Copywriter  │   Builder   │
-│ LLM + RAG   │  LLM + RAG   │  LLM plan   │
-└─────────────┴──────────────┴─────────────┘
+
+### Control flow (happy path)
+
+```text
+User message
+    → Strategist (multi-turn, vault-grounded)
+    → Plan object (strategy_summary, action_steps, deliverables, route)
+    → Awaiting approval (human gate)
+    → User chooses Copy / Builder / Both
+    → Specialist executors run
+    → Artifacts land in Outputs (paste-ready)
+    → Pipeline UI reflects stage
 ```
 
-| Layer | Tech |
-|-------|------|
-| Web | React + Vite · Vercel |
-| API | FastAPI · Modal |
-| RAG | Chroma + sentence-transformers |
-| Orchestration | Plan schema + approval + specialist executors |
+**Design invariant:** specialists do **not** auto-ship without plan approval. Silent agent chaos is a bug.
 
-Continuity docs: `docs/00-MASTER-PLAN-AND-CONTINUITY.md`, `docs/STATUS.md`, `docs/DESIGN-SYSTEM.md`.
+---
 
-## Repo layout
+## Knowledge density (what makes RAG real)
 
+Third-party corpus **content is not shipped** in this public repo (copyright / license hygiene). The **pipeline and architecture** are. On the running product, retrieval is backed by high-density vaults:
+
+### Strategist — Hormozi growth systems
+
+| Dimension | What is loaded |
+|-----------|----------------|
+| Core | Offers, leads, money models, growth systems |
+| Containers | **3** core books + **12** advanced implementation playbooks |
+| Shape | Stages, frameworks, diagnostic systems for lead / sales / retention / profit |
+
+### Copy specialist — Copy OS persuasion systems
+
+| Dimension | Scale |
+|-----------|------:|
+| Vault documents | **14** in-depth docs |
+| Named frameworks | **112** |
+| Structures / templates | **32** |
+| Checklists & QA | **58** (incl. universal laws, stress tests) |
+| Swipe / examples | **600+** files |
+| Author / source base | **40+** classic and modern (Hopkins, Schwartz, Cialdini, Ogilvy, Kennedy, Brunson, Hormozi, …) |
+
+Portfolio deep-dive: [deekshak.site/#flagship](https://deekshak.site/#flagship) → **Behind the scenes**.
+
+Local operators place their own vault material under paths described in `knowledge/README.md` (never commit secrets or copyrighted dumps to git).
+
+---
+
+## Stack
+
+| Layer | Choice | Role |
+|-------|--------|------|
+| Web | React + Vite + TypeScript | ChatGPT-like shell, pipeline, plan approval UI |
+| API | FastAPI | Threads, plan schema, execute routes |
+| Hosting | Modal (API) · Vercel (web) | Production split |
+| RAG | Chroma + embeddings | Multi-corpus retrieval |
+| LLM | Configurable (OpenRouter / DeepSeek / peers) | Strategist + specialists |
+| Contracts | Shared plan JSON schema | Strategist → UI → executors |
+
+---
+
+## Repository map
+
+```text
+apps/web/                 Product UI (views: chat, pipeline, plan, agents, outputs)
+services/api/
+  app/
+    agents/               Strategist, copy, build executors, parsing
+    rag/                  Ingest + retrieve
+    schemas/              Plan contract
+    llm/                  Model clients
+  modal_app.py            Modal deploy entry
+  tests/                  Unit tests (constraints, artifact parse)
+docs/                     Continuity, design system, deploy, status
+knowledge/                Local vault instructions (no proprietary dump)
+evals/                    Evaluation hooks
 ```
-apps/web/           # Product shell
-services/api/       # FastAPI, agents, RAG, Modal
-docs/               # Plans, design system, deploy notes
-evals/              # Evaluation helpers
-knowledge/README.md # Place your own vaults (not shipped)
-```
 
-## Quick start
+---
+
+## Quick start (local)
 
 ```powershell
 # API
@@ -60,36 +145,57 @@ cd services/api
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-copy .env.example .env   # OPENROUTER_API_KEY or DEEPSEEK_API_KEY
+copy .env.example .env   # set LLM keys
 uvicorn app.main:app --reload --port 8000
 
 # Web
 cd apps/web
 npm install
-# set VITE_API_URL
+# VITE_API_URL=http://127.0.0.1:8000
 npm run dev
 ```
 
+Tests:
+
+```powershell
+cd services/api
+pytest
+```
+
+---
+
 ## Deploy
 
-- API: `modal deploy services/api/modal_app.py` (secrets via Modal)  
-- Web: Vercel with `VITE_API_URL` pointing at API  
+| Target | How |
+|--------|-----|
+| API | `modal deploy services/api/modal_app.py` (secrets in Modal) |
+| Web | Vercel · `VITE_API_URL` → public API |
 
-## Security
+See `docs/DEPLOY-MODAL-VERCEL.md`.
 
-- Never commit `.env`  
-- Knowledge vaults with third-party copyrighted material are **not** in this repo  
-- `.env.example` documents required variables only  
+---
 
-## Related projects
+## Security model
+
+- No `.env` / keys / tokens in git  
+- No client PII  
+- **No third-party copyrighted vault dumps** in the public tree  
+- `.env.example` documents variables only  
+
+---
+
+## Related systems (same author)
 
 | Repo | Role |
 |------|------|
-| [agency-os](https://github.com/Deekshak11/agency-os) | Outbound factory (Antigravity) |
-| [show-rate-guardian](https://github.com/Deekshak11/show-rate-guardian) | No-show agent skills |
-| [signal-os](https://github.com/Deekshak11/signal-os) | Agentic infrastructure docs |
-| [deekshak-portfolio](https://github.com/Deekshak11/deekshak-portfolio) | Portfolio site |
+| [agency-os](https://github.com/Deekshak11/agency-os) | Outbound factory · Modal + Workspace |
+| [show-rate-guardian](https://github.com/Deekshak11/show-rate-guardian) | No-show risk agent skills |
+| [signal-os](https://github.com/Deekshak11/signal-os) | Agentic infra architecture |
+| [automation-systems](https://github.com/Deekshak11/automation-systems) | Production n8n graphs (BDR, email RAG, CRM, research) |
+| [deekshak-portfolio](https://github.com/Deekshak11/deekshak-portfolio) | Hire site source |
+
+---
 
 ## License
 
-MIT for original code in this repository.
+MIT for original code in this repository. Methodology corpora remain under their respective rights holders; use your own licensed material for local RAG.
