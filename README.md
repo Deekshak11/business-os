@@ -3,7 +3,8 @@
 **Multi-agent business operating system** — messy request → dense RAG strategist → **human plan lock** → specialist agents → paste-ready artifacts.
 
 [![Live](https://img.shields.io/badge/Live-app.deekshak.site-14b8a6?style=for-the-badge)](https://app.deekshak.site)
-[![Portfolio](https://img.shields.io/badge/Portfolio-deekshak.site-0ea5e9?style=for-the-badge)](https://deekshak.site/#flagship)
+[![Portfolio](https://img.shields.io/badge/Portfolio-deekshak.site-0ea5e9?style=for-the-badge)](https://deekshak.site)
+[![Demo](https://img.shields.io/badge/Demo-YouTube-ff0000?style=for-the-badge)](https://youtu.be/VIuVrRgLn9c)
 [![Author](https://img.shields.io/badge/Author-Deekshak%20SS-1e293b?style=for-the-badge)](https://github.com/Deekshak11)
 
 > Hire-facing flagship. Proves **orchestration**, **approval gates**, **multi-corpus RAG**, and a real product UI — not a notebook demo.
@@ -23,8 +24,9 @@ Business OS is that loop, end to end, in production.
 | Surface | URL |
 |---------|-----|
 | **Live product** | https://app.deekshak.site |
-| **Portfolio case + walkthrough** | https://deekshak.site/#flagship |
-| **This repo** | architecture, API, web shell, deploy |
+| **Demo video** | https://youtu.be/VIuVrRgLn9c |
+| **Portfolio + case study** | https://deekshak.site |
+| **This repo** | architecture, API, web shell, knowledge vaults, deploy |
 
 ---
 
@@ -107,7 +109,7 @@ User message
 | Authors / sources | **40+** |
 | Layout | Navigation · foundation · architecture · tactics · systems · MOCs |
 
-Portfolio deep-dive: [deekshak.site/#flagship](https://deekshak.site/#flagship) → **Behind the scenes**.
+Demo video: [youtu.be/VIuVrRgLn9c](https://youtu.be/VIuVrRgLn9c) · Portfolio deep-dive: [deekshak.site](https://deekshak.site/#flagship) (vaults + case study).
 
 ```text
 knowledge/
