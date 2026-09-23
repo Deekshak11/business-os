@@ -2,7 +2,7 @@
 Modal deployment for Business OS API.
 
 Deploy:
-  modal secret create business-os-secrets OPENROUTER_API_KEY=<your-key>
+  modal secret create business-os-secrets OPENROUTER_API_KEY=sk-or-...
   modal deploy modal_app.py
 
 Local serve (ephemeral URL):
@@ -127,12 +127,12 @@ def bootstrap_index():
         "/data/chroma": chroma_vol,
         "/cache/hf": hf_vol,
     },
-    timeout=60 * 6,  # chat + execute can be long
+    timeout=60 * 10,  # medium reasoning + specialist runs can be long
     memory=4096,
     cpu=2.0,
-    # Keep one warm container so demos stay responsive 24/7 (uses Modal credits)
-    min_containers=1,
-    scaledown_window=600,
+    # No warm pool: min_containers=1 burns Starter credits (4GB 24/7).
+    # First request after idle may cold-start; fine for portfolio demos.
+    scaledown_window=120,
 )
 @modal.concurrent(max_inputs=8)
 @modal.asgi_app(label="bizos-api")
@@ -152,13 +152,16 @@ def fastapi_app():
     )
     os.environ.setdefault("OPENROUTER_HTTP_REFERER", "https://app.deekshak.site")
 
-    # Map Modal secret env if only DEEPSEEK / OPENROUTER set
+    # Map Modal secret env if only OPENROUTER is set
     if os.getenv("OPENROUTER_API_KEY") and not os.getenv("DEEPSEEK_API_KEY"):
         os.environ["DEEPSEEK_API_KEY"] = os.environ["OPENROUTER_API_KEY"]
-        os.environ.setdefault("DEEPSEEK_BASE_URL", "https://openrouter.ai/api/v1")
-        os.environ.setdefault("DEEPSEEK_MODEL", "deepseek/deepseek-v4-flash")
-        os.environ.setdefault("LLM_BASE_URL", "https://openrouter.ai/api/v1")
-        os.environ.setdefault("LLM_MODEL", "deepseek/deepseek-v4-flash")
+
+    # Always pin the live model. An older secret value must not keep Flash.
+    os.environ["DEEPSEEK_BASE_URL"] = "https://openrouter.ai/api/v1"
+    os.environ["LLM_BASE_URL"] = "https://openrouter.ai/api/v1"
+    os.environ["DEEPSEEK_MODEL"] = "meta/muse-spark-1.3-contributor"
+    os.environ["LLM_MODEL"] = "meta/muse-spark-1.3-contributor"
+    os.environ["LLM_REASONING_EFFORT"] = "medium"
 
     # Reload settings after env is set
     from app import config as config_mod

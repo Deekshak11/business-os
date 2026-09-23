@@ -19,6 +19,26 @@ class DeepSeekError(RuntimeError):
 # Alias for newer call sites
 LLMError = DeepSeekError
 
+# Muse Spark reasoning is mandatory and shares the output token budget.
+# Default is medium. "max" is not used; that label maps to xhigh.
+_REASONING_EFFORTS = {"minimal", "low", "medium", "high", "xhigh"}
+_REASONING_RESERVE = {
+    "minimal": 512,
+    "low": 1024,
+    "medium": 4096,
+    "high": 8192,
+    "xhigh": 16384,
+}
+
+
+def normalize_reasoning_effort(effort: str | None) -> str:
+    raw = (effort or "medium").strip().lower()
+    if raw == "max":
+        return "xhigh"
+    if raw in _REASONING_EFFORTS:
+        return raw
+    return "medium"
+
 
 def _completions_url(base: str) -> str:
     """
@@ -37,7 +57,8 @@ def chat_completion(
     temperature: float = 0.3,
     max_tokens: int = 2500,
     response_format: Optional[dict[str, Any]] = None,
-    timeout: float = 120.0,
+    timeout: float = 180.0,
+    reasoning_effort: str | None = None,
 ) -> str:
     if not settings.deepseek_api_key:
         raise DeepSeekError(
@@ -45,12 +66,20 @@ def chat_completion(
         )
 
     url = _completions_url(settings.deepseek_base_url)
+    effort = normalize_reasoning_effort(
+        reasoning_effort if reasoning_effort is not None else settings.llm_reasoning_effort
+    )
+    muse = "muse-spark" in settings.deepseek_model
+    # Reasoning tokens come out of max_tokens. Keep the caller's answer budget.
+    output_budget = max_tokens + (_REASONING_RESERVE[effort] if muse else 0)
     payload: dict[str, Any] = {
         "model": settings.deepseek_model,
         "messages": messages,
         "temperature": temperature,
-        "max_tokens": max_tokens,
+        "max_tokens": output_budget,
     }
+    if muse:
+        payload["reasoning"] = {"effort": effort}
     if response_format:
         payload["response_format"] = response_format
 

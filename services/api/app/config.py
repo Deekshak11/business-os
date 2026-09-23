@@ -51,7 +51,9 @@ class Settings(BaseSettings):
     # Primary LLM (OpenRouter or any OpenAI-compatible endpoint)
     openrouter_api_key: str = ""
     llm_base_url: str = "https://openrouter.ai/api/v1"
-    llm_model: str = "deepseek/deepseek-v4-flash"
+    llm_model: str = "meta/muse-spark-1.3-contributor"
+    # medium by default. "max" is normalized to xhigh in the chat client.
+    llm_reasoning_effort: str = "medium"
 
     # Legacy DeepSeek env names — still accepted; filled from OpenRouter when empty
     deepseek_api_key: str = ""
@@ -79,11 +81,15 @@ class Settings(BaseSettings):
         if self.openrouter_api_key and not self.deepseek_base_url:
             base = self.llm_base_url or "https://openrouter.ai/api/v1"
         if self.openrouter_api_key and not self.deepseek_model:
-            model = self.llm_model or "deepseek/deepseek-v4-flash"
+            model = self.llm_model or "meta/muse-spark-1.3-contributor"
         if not base:
             base = "https://openrouter.ai/api/v1" if self.openrouter_api_key else "https://api.deepseek.com"
         if not model:
-            model = "deepseek/deepseek-v4-flash" if "openrouter" in base else "deepseek-chat"
+            model = (
+                "meta/muse-spark-1.3-contributor"
+                if "openrouter" in base
+                else "deepseek-chat"
+            )
 
         # Normalize into deepseek_* fields used by the chat client
         object.__setattr__(self, "deepseek_api_key", key)

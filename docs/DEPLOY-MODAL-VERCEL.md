@@ -6,7 +6,7 @@ No signups / no user DB for v1. OpenRouter key stays **only** on Modal.
 
 | Layer | URL | Status |
 |-------|-----|--------|
-| **API (Modal)** | https://deekshakdk11--bizos-api.modal.run | Deployed · health OK · OpenRouter Flash |
+| **API (Modal)** | https://deekshakdk11--bizos-api.modal.run | Deployed · **no warm containers** (credit save) · cold start OK · OpenRouter `meta/muse-spark-1.3-contributor` |
 | **RAG index** | Modal volume `business-os-chroma` | Hormozi + CopyOS ingested |
 | **UI (Vercel)** | https://app.deekshak.site | Needs `vercel login` + domain DNS (one-time) |
 

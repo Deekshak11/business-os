@@ -12,6 +12,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from app.agents.executor import run_execution
 from app.agents.strategist import run_strategist
 from app.config import settings
+from app.llm.deepseek import normalize_reasoning_effort
 from app.rag.store import get_store
 from app.schemas.plan import (
     ChatRequest,
@@ -118,6 +119,7 @@ def health():
         "deepseek_configured": llm_on,
         "llm_provider": settings.llm_provider,
         "llm_model": settings.llm_model,
+        "llm_reasoning": normalize_reasoning_effort(settings.llm_reasoning_effort),
         "deepseek_model": settings.llm_model,
         "endpoints": ["/health", "/rag/query", "/chat", "/execute"],
     }

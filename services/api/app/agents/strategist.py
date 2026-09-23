@@ -772,7 +772,7 @@ def run_strategist(
     try:
         # Slightly warmer for coach feel; higher for mock variety
         temp = 0.42 if wants_mock else 0.32
-        raw = chat_completion(messages, temperature=temp, max_tokens=3200)
+        raw = chat_completion(messages, temperature=temp, max_tokens=3200, timeout=180.0)
     except DeepSeekError as e:
         cites = []
         for h in hits[:4]:
@@ -781,14 +781,14 @@ def run_strategist(
                 Citation(
                     name=str(meta.get("title") or meta.get("filename") or "source"),
                     file=str(meta.get("source_path") or ""),
-                    why="Retrieved while DeepSeek unavailable",
+                    why="Retrieved while the model was unavailable",
                 )
             )
         plan = Plan(
             thread_id=tid,
             strategy_summary="LLM call failed; showing retrieved context only.",
             frameworks_cited=cites,
-            questions_still_open=["Retry after verifying DEEPSEEK_API_KEY / network."],
+            questions_still_open=["Retry after verifying the LLM API key / network."],
             recommended_route=Route.none,
             business_context=BusinessContext(
                 constraints_stated=[p.split(".")[0][:120] for p in prefs]
@@ -796,7 +796,7 @@ def run_strategist(
         )
         return {
             "thread_id": tid,
-            "reply": f"**Strategist error talking to DeepSeek:** {e}\n\nRetrieved files:\n"
+            "reply": f"**Strategist error talking to the model:** {e}\n\nRetrieved files:\n"
             + "\n".join(f"- {c.file or c.name}" for c in cites),
             "plan": plan,
             "awaiting_approval": False,

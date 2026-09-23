@@ -1,11 +1,12 @@
-"""Builder Agent — demo-scoped implementation packs for DeepSeek V4 Flash.
+"""Builder Agent — demo-scoped implementation packs.
 
 Complexity gate
 ---------------
-DeepSeek V4 Flash (OpenRouter: deepseek/deepseek-v4-flash) is an efficiency model
-(~284B MoE / ~13B active): fast and cheap, solid on short docs and simple agent
-tasks, not a production engineering crew. Long multi-service systems routinely
-truncate or invent half-finished blueprints.
+Public demo stays a finished slice. Long multi-service systems still get a
+complete mini-artifact plus an honest limit note, so the free path never
+claims a full production system was built and verified.
+
+Model: OpenRouter meta/muse-spark-1.3-contributor.
 
 We therefore classify each plan:
 
@@ -29,7 +30,7 @@ from app.schemas.plan import Artifact, Plan
 
 Complexity = Literal["simple", "complex"]
 
-# Signals that the requested work exceeds reliable Flash demo scope
+# Signals that the requested work exceeds the public-demo slice
 _COMPLEX_PATTERNS: list[re.Pattern[str]] = [
     re.compile(r"\bn8n\b", re.I),
     re.compile(r"\bmake\.com\b|\bintegromat\b", re.I),
@@ -46,8 +47,8 @@ DEMO_BANNER = """
 
 ### Demo mode (truth)
 
-This pack was produced by **Business OS Builder Agent** on **DeepSeek V4 Flash**
-(via OpenRouter) — an efficient model tuned for speed/cost, not production engineering.
+This pack was produced by **Business OS Builder Agent** on **Muse Spark 1.3 Contributor**
+(via OpenRouter). The public demo returns a finished slice, not a verified production system.
 
 | In scope for this demo | Out of scope here |
 |------------------------|-------------------|
@@ -92,7 +93,7 @@ Kinds: checklist | spec | runbook | other
 
 SYSTEM_COMPLEX = """You are the Builder Agent in DEMO MODE for Business OS.
 The request is COMPLEX (multi-service automation / agentic / production-ish).
-You are running on DeepSeek V4 Flash — good at short specs, weak at shipping full systems.
+You are running on Muse Spark 1.3 Contributor via OpenRouter.
 
 YOU MUST NOT claim to build a production system.
 Instead produce exactly 2 COMPLETE demo artifacts:
@@ -104,7 +105,7 @@ Instead produce exactly 2 COMPLETE demo artifacts:
 
 2) **Ship roadmap + honesty** — markdown that:
    - Lists what a production version would include
-   - States clearly this is DEMO MODE on DeepSeek V4 Flash
+   - States clearly this is DEMO MODE on Muse Spark 1.3 Contributor
    - Says production-grade delivery needs Business OS Pro / human builder
 
 Rules:
@@ -131,7 +132,7 @@ full finished markdown
 
 def classify_build_complexity(plan: Plan) -> Complexity:
     """
-    Heuristic threshold for DeepSeek V4 Flash demo scope.
+    Heuristic threshold for the public-demo slice.
 
     SIMPLE: short docs, one channel, few deliverables without multi-tool systems.
     COMPLEX: automations, multi-tool stacks, agentic workflows, production language.
@@ -217,7 +218,7 @@ def _demo_fallback_artifacts(plan: Plan) -> list[Artifact]:
             break
     blueprint = f"""# Demo blueprint — {title}
 
-> **Demo mode** on DeepSeek V4 Flash. This is a complete *sample* slice, not a production system.
+> **Demo mode** on Muse Spark 1.3 Contributor. This is a complete *sample* slice, not a production system.
 
 ## Narrow demo slice (ship this first)
 **One job only:** send a single **email reminder 24 hours before** an appointment.
@@ -311,8 +312,8 @@ Enough to film a YouTube demo and put a real downloadable starter on Gumroad.
 5. Setup guide with screenshots + support for non-technical agencies  
 
 ## Why the cut
-**DeepSeek V4 Flash** is strong on short, finished specs. Multi-service agentic builds
-exceed reliable free-demo scope and often **truncate mid-output**.
+Multi-service agentic builds stay outside this free-demo slice.
+The pack above is a finished sample, not a verified production system.
 
 ## Upgrade
 For production-grade systems: **Business OS Pro** (or a human builder sprint) with a
@@ -451,7 +452,7 @@ def run_builder(plan: Plan) -> dict[str, Any]:
                 a.content = a.content.rstrip() + "\n\n" + DEMO_BANNER
         if not summary.lower().startswith("demo"):
             summary = (
-                "Demo-mode Builder pack (DeepSeek V4 Flash): complete starter artifacts — "
+                "Demo-mode Builder pack (Muse Spark 1.3 Contributor): complete starter artifacts — "
                 "not a production-grade system. "
                 + (summary or "")
             ).strip()
